@@ -44,14 +44,14 @@ const BlogPostTemplate = ({ data, location }) => {
         >
           <li>
             {previous && (
-              <Link to={previous.slug} rel="prev">
+              <Link to={`/blog/${previous.frontmatter.slug}`} rel="prev">
                 ← {previous.frontmatter.title}
               </Link>
             )}
           </li>
           <li>
             {next && (
-              <Link to={next.slug} rel="next">
+              <Link to={`/blog/${next.frontmatter.slug}`} rel="next">
                 {next.frontmatter.title} →
               </Link>
             )}
@@ -83,18 +83,19 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         description
+        slug
       }
     }
     previous: mdx(id: { eq: $previousPostId }) {
-      slug
       frontmatter {
         title
+        slug
       }
     }
     next: mdx(id: { eq: $nextPostId }) {
-      slug
       frontmatter {
         title
+        slug
       }
     }
   }

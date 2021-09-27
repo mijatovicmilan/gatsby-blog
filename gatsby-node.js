@@ -17,7 +17,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         ) {
           nodes {
             id
-            slug
+            frontmatter {
+              slug
+            }
           }
         }
       }
@@ -44,7 +46,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       const nextPostId = index === posts.length - 1 ? null : posts[index + 1].id
 
       createPage({
-        path: post.slug,
+        path: `/blog/${post.frontmatter.slug}`,
         component: blogPost,
         context: {
           id: post.id,
