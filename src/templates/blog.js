@@ -44,7 +44,6 @@ export const pageQuery = graphql`
       limit: $limit
     ) {
       nodes {
-        excerpt
         frontmatter {
           date(formatString: "MMMM DD, YYYY")
           title

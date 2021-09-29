@@ -72,7 +72,6 @@ export const pageQuery = graphql`
     }
     allMdx(limit: 4, sort: { fields: [frontmatter___date], order: DESC }) {
       nodes {
-        excerpt
         frontmatter {
           date(formatString: "MMMM DD, YYYY")
           title

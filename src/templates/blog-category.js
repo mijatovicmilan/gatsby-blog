@@ -52,7 +52,6 @@ export const pageQuery = graphql`
     ) {
       nodes {
         id
-        excerpt(pruneLength: 160)
         body
         frontmatter {
           title
