@@ -1,14 +1,16 @@
 import * as React from "react";
-import { Link, graphql } from "gatsby";
+import { graphql } from "gatsby";
 import Layout from "../components/layout";
 import Seo from "../components/seo";
 import CardPost from "../components/card-post";
 import blogCategories from "../../utils/blog-categories";
+import Pagination from "../components/pagination";
 
 const BlogPostsCategoryTemplate = ({
-  pageContext: { slug, previousPagePath, nextPagePath },
+  pageContext: { slug },
   data,
   location,
+  pageContext,
 }) => {
   const posts = data.allMdx.nodes;
   const siteTitle = data.site.siteMetadata?.title || `Title`;
@@ -28,8 +30,7 @@ const BlogPostsCategoryTemplate = ({
             </div>
           )}
         </div>
-        {previousPagePath && <Link to={previousPagePath}>Previous</Link>}
-        {nextPagePath && <Link to={nextPagePath}>Next</Link>}
+        <Pagination data={pageContext} />
       </div>
     </Layout>
   );

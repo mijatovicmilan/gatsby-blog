@@ -56,7 +56,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     paginate({
       createPage,
       items: posts,
-      itemsPerPage: 2,
+      itemsPerPage: 4,
       pathPrefix: "/blog",
       component: path.resolve(`./src/templates/blog.js`),
     });
@@ -89,7 +89,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     paginate({
       createPage,
       items: category.nodes,
-      itemsPerPage: 1,
+      itemsPerPage: 4,
       pathPrefix: `/blog/${catSlug}`,
       component: blogCategory,
       context: {

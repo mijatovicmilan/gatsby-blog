@@ -1,14 +1,11 @@
 import * as React from "react";
-import { graphql, Link } from "gatsby";
+import { graphql } from "gatsby";
 import Layout from "../components/layout";
 import Seo from "../components/seo";
 import CardPost from "../components/card-post";
+import Pagination from "../components/pagination";
 
-const Index = ({
-  data,
-  location,
-  pageContext: { previousPagePath, nextPagePath },
-}) => {
+const Index = ({ data, location, pageContext }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`;
   const posts = data.allMdx.nodes;
 
@@ -26,8 +23,7 @@ const Index = ({
             </div>
           )}
         </div>
-        {previousPagePath && <Link to={previousPagePath}>Previous</Link>}
-        {nextPagePath && <Link to={nextPagePath}>Next</Link>}
+        <Pagination data={pageContext} />
       </div>
     </Layout>
   );
