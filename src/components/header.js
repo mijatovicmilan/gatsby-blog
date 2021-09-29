@@ -64,16 +64,10 @@ const Header = () => {
           </div>
           <Popover.Group as="nav" className="hidden md:flex space-x-10">
             <Link
-              to="#"
+              to="/blog"
               className="text-base font-medium text-gray-500 hover:text-gray-900"
             >
-              Pricing
-            </Link>
-            <Link
-              to="#"
-              className="text-base font-medium text-gray-500 hover:text-gray-900"
-            >
-              Docs
+              Blog
             </Link>
 
             <Popover className="relative">
@@ -129,7 +123,7 @@ const Header = () => {
                             <h3 className="text-sm tracking-wide font-medium text-gray-500 uppercase">
                               Recent Posts
                             </h3>
-                            <ul role="list" className="mt-4 space-y-4">
+                            <ul className="mt-4 space-y-4">
                               {recentPosts.map(post => (
                                 <li
                                   key={post.id}
