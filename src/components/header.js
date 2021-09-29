@@ -2,47 +2,16 @@ import React, { Fragment } from "react";
 import { Link } from "gatsby";
 import { Popover, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
+import blogCategories from "../../utils/blog-categories";
+import useRecentPosts from "../hooks/use-recent-posts";
 
-const resources = [
-  {
-    name: "Help Center",
-    description:
-      "Get all of your questions answered in our forums or contact support.",
-    to: "#",
-  },
-  {
-    name: "Guides",
-    description:
-      "Learn how to maximize our platform to get the most out of it.",
-    to: "#",
-  },
-  {
-    name: "Events",
-    description:
-      "See what meet-ups and other events we might be planning near you.",
-    to: "#",
-  },
-  {
-    name: "Security",
-    description: "Understand how we take your privacy seriously.",
-    to: "#",
-  },
-];
-const recentPosts = [
-  { id: 1, name: "Boost your conversion rate", to: "#" },
-  {
-    id: 2,
-    name: "How to use search engine optimization to drive traffic to your site",
-    to: "#",
-  },
-  { id: 3, name: "Improve your customer experience", to: "#" },
-];
+const Header = ({ data }) => {
+  const recentPosts = useRecentPosts();
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(" ");
+  }
 
-const Header = () => {
   return (
     <Popover className="relative bg-white border-b-2 border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -79,7 +48,7 @@ const Header = () => {
                       "group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     )}
                   >
-                    <span>More</span>
+                    <span>Categories</span>
                     <ChevronDownIcon
                       className={classNames(
                         open ? "text-gray-600" : "text-gray-400",
@@ -101,10 +70,10 @@ const Header = () => {
                     <Popover.Panel className="absolute z-10 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-screen max-w-md sm:px-0">
                       <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                         <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                          {resources.map(item => (
+                          {blogCategories.map(item => (
                             <Link
                               key={item.name}
-                              to={item.to}
+                              to={`/blog/${item.slug}`}
                               className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
                             >
                               <div className="ml-4">
@@ -130,10 +99,10 @@ const Header = () => {
                                   className="text-base truncate"
                                 >
                                   <Link
-                                    to={post.to}
+                                    to={`/blog/${post.frontmatter.slug}`}
                                     className="font-medium text-gray-900 hover:text-gray-700"
                                   >
-                                    {post.name}
+                                    {post.frontmatter.title}
                                   </Link>
                                 </li>
                               ))}
@@ -205,10 +174,10 @@ const Header = () => {
                 >
                   Docs
                 </Link>
-                {resources.map(item => (
+                {blogCategories.map(item => (
                   <Link
                     key={item.name}
-                    to={item.to}
+                    to={`/blog/${item.slug}`}
                     className="text-base font-medium text-gray-900 hover:text-gray-700"
                   >
                     {item.name}
