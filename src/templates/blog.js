@@ -4,13 +4,13 @@ import Layout from "../components/layout";
 import Seo from "../components/seo";
 import CardPost from "../components/card-post";
 import Pagination from "../components/pagination";
+import Cta from "../components/cta";
 
-const Index = ({ data, location, pageContext }) => {
-  const siteTitle = data.site.siteMetadata?.title || `Title`;
+const Index = ({ data, pageContext }) => {
   const posts = data.allMdx.nodes;
 
   return (
-    <Layout location={location} title={siteTitle}>
+    <Layout>
       <Seo title="All posts" />
       <div className="bg-white pt-4 pb-20 px-4 sm:px-6 lg:pt-8 lg:pb-28 lg:px-8">
         <div className="relative max-w-lg mx-auto divide-y-2 divide-gray-200 lg:max-w-7xl">
@@ -25,6 +25,7 @@ const Index = ({ data, location, pageContext }) => {
         </div>
         <Pagination data={pageContext} />
       </div>
+      <Cta />
     </Layout>
   );
 };
@@ -33,11 +34,6 @@ export default Index;
 
 export const pageQuery = graphql`
   query ($skip: Int!, $limit: Int!) {
-    site {
-      siteMetadata {
-        title
-      }
-    }
     allMdx(
       sort: { fields: [frontmatter___date], order: DESC }
       skip: $skip

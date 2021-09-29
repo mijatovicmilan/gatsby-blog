@@ -6,10 +6,10 @@ import Bio from "../components/bio";
 import Layout from "../components/layout";
 import Seo from "../components/seo";
 import blogCategories from "../../utils/blog-categories";
+import Cta from "../components/cta";
 
-const BlogPostTemplate = ({ data, location }) => {
+const BlogPostTemplate = ({ data }) => {
   const post = data.mdx;
-  const siteTitle = data.site.siteMetadata?.title || `Title`;
   const { previous, next } = data;
   const category = blogCategories.find(
     category => category.slug === post.frontmatter.category
@@ -17,7 +17,7 @@ const BlogPostTemplate = ({ data, location }) => {
   const image = getImage(post.frontmatter.image);
 
   return (
-    <Layout location={location} title={siteTitle}>
+    <Layout>
       <Seo
         title={post.frontmatter.title}
         description={post.frontmatter.description}
@@ -181,6 +181,7 @@ const BlogPostTemplate = ({ data, location }) => {
           </li>
         </ul>
       </nav>
+      <Cta />
     </Layout>
   );
 };
@@ -193,11 +194,6 @@ export const pageQuery = graphql`
     $previousPostId: String
     $nextPostId: String
   ) {
-    site {
-      siteMetadata {
-        title
-      }
-    }
     mdx(id: { eq: $id }) {
       id
       body

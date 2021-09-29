@@ -1,17 +1,16 @@
 import * as React from "react";
 import { graphql } from "gatsby";
-
+import Cta from "../components/cta";
 import Hero from "../components/hero";
 import Layout from "../components/layout";
 import Seo from "../components/seo";
 import CardPost from "../components/card-post";
 
-const Index = ({ data, location }) => {
-  const siteTitle = data.site.siteMetadata?.title || `Title`;
+const Index = ({ data }) => {
   const posts = data.allMdx.nodes;
 
   return (
-    <Layout location={location} title={siteTitle}>
+    <Layout>
       <Seo title="Home" />
       <Hero />
       <div className="bg-white pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8">
@@ -57,6 +56,7 @@ const Index = ({ data, location }) => {
           )}
         </div>
       </div>
+      <Cta />
     </Layout>
   );
 };
@@ -65,11 +65,6 @@ export default Index;
 
 export const pageQuery = graphql`
   query {
-    site {
-      siteMetadata {
-        title
-      }
-    }
     allMdx(limit: 4, sort: { fields: [frontmatter___date], order: DESC }) {
       nodes {
         frontmatter {
