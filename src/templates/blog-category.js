@@ -1,12 +1,12 @@
 import * as React from "react";
-import { graphql } from "gatsby";
+import { Link, graphql } from "gatsby";
 import Layout from "../components/layout";
 import Seo from "../components/seo";
 import CardPost from "../components/card-post";
 import blogCategories from "../../utils/blog-categories";
 
 const BlogPostsCategoryTemplate = ({
-  pageContext: { slug },
+  pageContext: { slug, previousPagePath, nextPagePath },
   data,
   location,
 }) => {
@@ -28,6 +28,8 @@ const BlogPostsCategoryTemplate = ({
             </div>
           )}
         </div>
+        {previousPagePath && <Link to={previousPagePath}>Previous</Link>}
+        {nextPagePath && <Link to={nextPagePath}>Next</Link>}
       </div>
     </Layout>
   );
@@ -36,13 +38,17 @@ const BlogPostsCategoryTemplate = ({
 export default BlogPostsCategoryTemplate;
 
 export const pageQuery = graphql`
-  query BlogPostsByCategorySlug($slug: String) {
+  query ($slug: String, $skip: Int!, $limit: Int!) {
     site {
       siteMetadata {
         title
       }
     }
-    allMdx(filter: { frontmatter: { category: { eq: $slug } } }) {
+    allMdx(
+      filter: { frontmatter: { category: { eq: $slug } } }
+      skip: $skip
+      limit: $limit
+    ) {
       nodes {
         id
         excerpt(pruneLength: 160)

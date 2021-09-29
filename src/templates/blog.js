@@ -1,10 +1,14 @@
 import * as React from "react";
-import { graphql } from "gatsby";
+import { graphql, Link } from "gatsby";
 import Layout from "../components/layout";
 import Seo from "../components/seo";
 import CardPost from "../components/card-post";
 
-const Index = ({ data, location }) => {
+const Index = ({
+  data,
+  location,
+  pageContext: { previousPagePath, nextPagePath },
+}) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`;
   const posts = data.allMdx.nodes;
 
@@ -22,6 +26,8 @@ const Index = ({ data, location }) => {
             </div>
           )}
         </div>
+        {previousPagePath && <Link to={previousPagePath}>Previous</Link>}
+        {nextPagePath && <Link to={nextPagePath}>Next</Link>}
       </div>
     </Layout>
   );
@@ -30,13 +36,17 @@ const Index = ({ data, location }) => {
 export default Index;
 
 export const pageQuery = graphql`
-  query {
+  query ($skip: Int!, $limit: Int!) {
     site {
       siteMetadata {
         title
       }
     }
-    allMdx(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMdx(
+      sort: { fields: [frontmatter___date], order: DESC }
+      skip: $skip
+      limit: $limit
+    ) {
       nodes {
         excerpt
         frontmatter {

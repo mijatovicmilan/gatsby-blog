@@ -1,6 +1,7 @@
 const path = require(`path`);
 const { createFilePath } = require(`gatsby-source-filesystem`);
 import blogCategories from "./utils/blog-categories";
+import { paginate } from "gatsby-awesome-pagination";
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions;
@@ -51,25 +52,51 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         },
       });
     });
+
+    paginate({
+      createPage,
+      items: posts,
+      itemsPerPage: 2,
+      pathPrefix: "/blog",
+      component: path.resolve(`./src/templates/blog.js`),
+    });
   }
 
   const blogCategory = path.resolve(`./src/templates/blog-category.js`);
 
-  const categories = blogCategories.map(category => {
-    return category.slug;
-  });
+  const catResult = await graphql(
+    `
+      {
+        allMdx {
+          group(field: frontmatter___category) {
+            nodes {
+              id
+              frontmatter {
+                title
+                category
+              }
+            }
+          }
+        }
+      }
+    `
+  );
+  const categoryPosts = catResult.data.allMdx.group;
 
-  if (categories.length > 0) {
-    categories.forEach((category, index) => {
-      createPage({
-        path: `/blog/${category}`,
-        component: blogCategory,
-        context: {
-          slug: category,
-        },
-      });
+  categoryPosts.forEach((category, index) => {
+    const catSlug = category.nodes[0].frontmatter.category;
+
+    paginate({
+      createPage,
+      items: category.nodes,
+      itemsPerPage: 1,
+      pathPrefix: `/blog/${catSlug}`,
+      component: blogCategory,
+      context: {
+        slug: catSlug,
+      },
     });
-  }
+  });
 };
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
