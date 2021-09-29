@@ -30,7 +30,7 @@ const CardPost = ({ posts }) => {
               <p
                 className="mt-3 text-base text-gray-500"
                 dangerouslySetInnerHTML={{
-                  __html: post.frontmatter.description || post.excerpt,
+                  __html: post.frontmatter.description,
                 }}
                 itemProp="description"
               />

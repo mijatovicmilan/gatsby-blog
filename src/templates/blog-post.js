@@ -20,7 +20,7 @@ const BlogPostTemplate = ({ data, location }) => {
     <Layout location={location} title={siteTitle}>
       <Seo
         title={post.frontmatter.title}
-        description={post.frontmatter.description || post.excerpt}
+        description={post.frontmatter.description}
       />
       <article itemScope itemType="http://schema.org/Article">
         <div className="relative py-16 bg-white overflow-hidden">
