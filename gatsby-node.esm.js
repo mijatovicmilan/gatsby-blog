@@ -1,6 +1,5 @@
 const path = require(`path`);
 const { createFilePath } = require(`gatsby-source-filesystem`);
-import blogCategories from "./utils/blog-categories";
 import { paginate } from "gatsby-awesome-pagination";
 
 exports.createPages = async ({ graphql, actions, reporter }) => {

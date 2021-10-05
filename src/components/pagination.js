@@ -38,11 +38,6 @@ const Pagination = ({
         )}
       </div>
     </nav>
-
-    /* <>
-      {previousPagePath && <Link to={previousPagePath}>Previous</Link>}
-      {nextPagePath && <Link to={nextPagePath}>Next</Link>}
-    </> */
   );
 };
 

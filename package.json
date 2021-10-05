@@ -16,6 +16,7 @@
     "@tailwindcss/typography": "^0.4.1",
     "autoprefixer": "^10.3.6",
     "esm": "^3.2.25",
+    "formik": "^2.2.9",
     "gatsby": "^3.13.1",
     "gatsby-awesome-pagination": "^0.3.8",
     "gatsby-plugin-google-analytics": "^3.13.0",
